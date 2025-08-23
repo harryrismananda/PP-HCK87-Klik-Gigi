@@ -1,0 +1,22 @@
+[
+  { "name": "Benzocaine gel", "description": "Topical anesthetic for numbing tooth pain or mouth sores." },
+  { "name": "Lidocaine", "description": "Local anesthetic for dental procedures, relieves pain." },
+  { "name": "Ibuprofen", "description": "NSAID to reduce pain, inflammation and fever associated with dental issues." },
+  { "name": "Acetaminophen", "description": "Analgesic and antipyretic for dental pain relief." },
+  { "name": "Naproxen", "description": "NSAID used for moderate dental pain and inflammation." },
+  { "name": "Chlorhexidine rinse", "description": "Antiseptic mouthwash for treating gum inflammation and infection." },
+  { "name": "Metronidazole gel", "description": "Topical antibiotic for gum infections and periodontal disease." },
+  { "name": "Clove oil", "description": "Natural topical analgesic used for temporary toothache relief." },
+  { "name": "Aspirin (avoid in children)", "description": "NSAID for general dental pain relief in adults." },
+  { "name": "Corticosteroid gel", "description": "Anti-inflammatory used for mouth ulcer discomfort." },
+  { "name": "Amoxicillin", "description": "Antibiotic for dental abscess or severe infection." },
+  { "name": "Penicillin VK", "description": "Penicillin-class antibiotic for acute dental infections." },
+  { "name": "Hydrogen peroxide rinse", "description": "Mouth rinse to reduce bacteria and clean minor oral wounds." },
+  { "name": "Fluoride varnish", "description": "Topical fluoride to reduce sensitivity and strengthen enamel." },
+  { "name": "Saline rinse", "description": "Saltwater rinse to relieve sore gums and minor mouth ulceration." },
+  { "name": "Xylocaine spray", "description": "Topical spray anesthetic for dental procedure discomfort." },
+  { "name": "Doxycycline gel", "description": "Antibiotic gel often used for gum disease treatment." },
+  { "name": "Diclofenac/paracetamol combo", "description": "Combined pain reliever for moderate to severe dental pain." },
+  { "name": "Mouth moisturising gel", "description": "Relieves dry mouth symptoms." },
+  { "name": "Mouthwash with enzymes", "description": "Supports oral mucosal health and dry mouth." }
+]

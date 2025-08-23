@@ -1,0 +1,22 @@
+[
+  { "name": "Toothache", "description": "Pain in or around a tooth, often indicating decay or infection." },
+  { "name": "Sensitive teeth", "description": "Pain or discomfort when exposed to hot or cold stimuli." },
+  { "name": "Bleeding gums", "description": "Gum bleeding during brushing or flossing, often a sign of gingivitis." },
+  { "name": "Sore gums", "description": "Gum tenderness or soreness, can accompany gum disease." },
+  { "name": "Mouth sores", "description": "Ulcers or lesions inside the mouth, including canker sores." },
+  { "name": "Bad breath", "description": "Persistent halitosis from poor hygiene or infection." },
+  { "name": "Dry mouth", "description": "Reduced saliva flow causing discomfort and increased decay risk." },
+  { "name": "Jaw pain", "description": "Pain around the jaw area, possibly linked to TMJ or abscess." },
+  { "name": "Swollen gums", "description": "Enlarged gums, often due to inflammation or infection." },
+  { "name": "Dental abscess", "description": "Localized pus formation from a bacterial infection in the tooth or gums." },
+  { "name": "Cracked tooth", "description": "Fracture or crack in tooth causing sharp pain or sensitivity." },
+  { "name": "Loose tooth", "description": "Tooth mobility, often due to gum disease or trauma." },
+  { "name": "Receding gums", "description": "Gum recession exposing tooth roots, increasing sensitivity." },
+  { "name": "Tooth discoloration", "description": "Change in tooth color due to staining or enamel damage." },
+  { "name": "Metalic taste", "description": "Unusual taste in the mouth, sometimes tied to gum disease." },
+  { "name": "Throbbing pain", "description": "Pulsating dental pain, often indicative of abscess or pulpitis." },
+  { "name": "Popping jaw", "description": "Clicking or popping sound in jaw during movement (TMJ-related)." },
+  { "name": "Gum redness", "description": "Red coloration of gums, often early sign of gum inflammation." },
+  { "name": "Ulcer in mouth", "description": "Open sore, like aphthous ulcer or canker sore inside the mouth." },
+  { "name": "Difficulty chewing", "description": "Pain or discomfort when biting or chewing food." }
+]
