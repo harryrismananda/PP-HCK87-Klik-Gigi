@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partial/_head', {title: "Home"}) %> <%-
+  include('./partial/_nav') %>
+  <body class="">
+    <div class="flex justify-center items-center">
+      <div class="flex flex-col items-center justify-center mt-20 px-4">
+        <h1 class="text-3xl font-bold mb-4">Welcome, USER</h1>
+        <p class="text-lg mb-10">Manage your appointments and profile below.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Create Appointment Button -->
+          <a href="/appointments/create" class="btn btn-primary btn-lg w-60">
+            Create Appointment
+          </a>
+
+          <!-- Edit Profile Button -->
+          <a href="/profile/edit" class="btn btn-secondary btn-lg w-60">
+            Edit Profile
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

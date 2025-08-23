@@ -4,20 +4,29 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app"
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:css\"",
+    "dev:server": "nodemon app",
+    "dev:css": "tailwindcss -i ./public/css/tailwind.css -o ./public/css/output.css --watch",
+    "build:css": "tailwindcss -i ./public/css/tailwind.css -o ./public/css/output.css --minify"
   },
   "keywords": [],
-  "author": "",
+  "author": "Harry Rismananda",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "pg": "^8.16.3",
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.0",
+    "daisyui": "^5.0.50",
     "nodemon": "^3.1.10",
-    "sequelize-cli": "^6.6.3"
+    "postcss": "^8.5.6",
+    "sequelize-cli": "^6.6.3",
+    "tailwindcss": "^3.4.17"
   }
 }

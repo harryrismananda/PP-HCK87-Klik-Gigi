@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partial/_head', {title: "Login"}) %>
+  <body class="">
+    <div class="flex justify-center items-center  py-20 my-10">
+      <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title justify-center">Login</h2>
+
+          <form action="/user/login" method="POST" class="form-control space-y-4">
+            <div>
+              <label class="label">
+                <span class="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                class="input input-bordered w-full"
+                required
+              />
+            </div>
+
+            <div>
+              <label class="label">
+                <span class="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                class="input input-bordered w-full"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full">Login</button>
+          </form>
+
+          <p class="text-center mt-4 text-sm">
+            Don’t have an account?
+            <a href="/user/register" class="link link-primary">Register</a>
+          </p>
+        </div>
+      </div>
+
+      
+  
+    </div>
+  </body>
+</html>

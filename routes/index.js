@@ -1,9 +1,23 @@
-const Controller = require("../controllers/controller")
-const router = require(`express`).Router()
+const Controller = require("../controllers/controller");
+const { loggedIn, errorNotFound } = require("../middlewares/auth");
+const router = require(`express`).Router();
+const routerAuth = require(`./auth`)
+const routerDoc = require(`./doctor`)
+const routerPatient = require(`./patient`)
 
 
-router.get(`/`, Controller.home)
+
+
+router.use(`/user`, routerAuth)
+router.use(`/doctor`, routerDoc)
 
 
 
-module.exports = router
+router.get(`/`, loggedIn, Controller.home);
+
+router.use(errorNotFound);
+
+
+
+
+module.exports = router;

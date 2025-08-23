@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partial/_head', {title: "New Appointment"}) %> 
+  <body class="">
+    <div class="flex justify-center items-center">
+
+    <div class="max-w-2xl mx-auto mt-10 p-6 bg-base-100 shadow-xl rounded-xl">
+  <h2 class="text-2xl font-bold mb-6 text-center">Create Appointment</h2>
+
+  <form action="/appointments" method="POST" class="space-y-6">
+    <!-- Doctor Selection -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-semibold">Select Doctor</span>
+      </label>
+      <select name="doctorId" class="select select-bordered w-full" required>
+        <% doctors.forEach(doctor => { %>
+          <option value="<%= doctor.id %>"><%= doctor.name %> - <%= doctor.specialization %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- Date -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-semibold">Date</span>
+      </label>
+      <input type="date" name="date" class="input input-bordered w-full" required />
+    </div>
+
+    <!-- Time -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-semibold">Time</span>
+      </label>
+      <input type="time" name="time" class="input input-bordered w-full" required />
+    </div>
+
+    <!-- Symptoms (checkboxes) -->
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-semibold">Symptoms</span>
+      </label>
+      <div class="grid grid-cols-2 gap-2">
+        <% symptoms.forEach(symptom => { %>
+          <label class="cursor-pointer flex items-center space-x-2">
+            <input type="checkbox" name="symptomIds" value="<%= symptom.id %>" class="checkbox checkbox-primary" />
+            <span><%= symptom.name %></span>
+          </label>
+        <% }) %>
+      </div>
+    </div>
+
+
+    <div class="form-control">
+      <label class="label">
+        <span class="label-text font-semibold">Additional Notes (Optional)</span>
+      </label>
+      <textarea name="notes" class="textarea textarea-bordered w-full" rows="3" placeholder="Describe your condition..."></textarea>
+    </div>
+
+
+    <div class="form-control mt-6">
+      <button type="submit" class="btn btn-primary w-full">Book Appointment</button>
+    </div>
+  </form>
+</div>
+
+    </div>
+  </body>
+</html>
