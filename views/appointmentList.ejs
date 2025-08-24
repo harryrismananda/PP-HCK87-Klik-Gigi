@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partial/_head', {title: "Your Appointment"}) %> <%-
+  include('./partial/_nav', {user}) %>
+  <body class="bg-stone-400 min-h-screen">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-5 gap-6">
+      <% appointment.forEach(el => { %>
+      <div class="card bg-base-100 shadow-xl w-full max-w-lg mx-auto">
+        <div class="card-body">
+          <!-- Appointment Info -->
+          <h2 class="card-title">Appointment ID: <%= el.id %></h2>
+          <p>
+            <span class="font-semibold">Doctor:</span> <%= el.Doctor.User.name
+            %>
+          </p>
+          <p>
+            <span class="font-semibold">Patient:</span> <%= patient.User.name %>
+          </p>
+          <p>
+            <span class="font-semibold">Scheduled At:</span> <%=
+            el.scheduleFormat %>
+          </p>
+          <p><span class="font-semibold">Notes:</span> <%= el.notes %></p>
+          <p>
+            <span class="font-semibold">Status:</span> <%= el.status ?
+            'Approved' : 'Pending' %>
+          </p>
+          <% if (el.status) { %>
+
+          <div><a href="#" class="btn">Download Prescription</a></div>
+          <% } %>
+
+          <!-- Symptoms Table -->
+          <div class="overflow-x-auto mt-4">
+            <table class="table table-zebra w-full">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Symptom</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% el.Symptoms.forEach((symptom, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= symptom.name %></td>
+                  <td><%= symptom.description %></td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </body>
+  <%- include('./partial/_footer') %>
+</html>

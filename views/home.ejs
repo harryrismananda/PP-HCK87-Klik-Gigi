@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partial/_head', {title: "Home"}) %> <%-
-  include('./partial/_nav', user) %>
-  <body class="">
-    <div class="flex justify-center items-center">
-      <div class="flex flex-col items-center justify-center mt-20 px-4">
+  <%- include('./partial/_head', {title: "Home"}) %>
+  <body class="bg-stone-400">
+    <%-include('./partial/_nav', {user}) %>
+    <div class="flex justify-center min-h-screen">
+      <div class="flex flex-col mt-20 px-4">
         <h1 class="text-3xl font-bold mb-4">Welcome, <%= user.name %></h1>
         <p class="text-lg mb-10">Manage your appointments and profile below.</p>
 
@@ -21,5 +21,6 @@
         </div>
       </div>
     </div>
+    <%- include('./partial/_footer') %>
   </body>
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('./partial/_head', {title: "Admin Register"}) %>
-  <body class="">
+  <body class="bg-stone-400 min-h-screen">
     <div class="flex justify-center items-center">
-      <div class="card w-96 bg-base-100 shadow-xl py-20 my-10">
+      <div class="card w-96 bg-base-100 shadow-xl py-10 my-10 mx-auto">
         <div class="card-body">
           <h2 class="card-title justify-center">Register for Doctor</h2>
 
@@ -64,7 +64,7 @@
             <p class="text-red-500"><%= error %></p>
             <% } %>
 
-            <div class="card bg-base-100 shadow-xl p-6">
+            
               <h3 class="text-lg font-semibold mb-4">Doctor Information</h3>
               <div class="form-control mb-4">
                 <label class="label">
@@ -93,7 +93,7 @@
                   class="input input-bordered w-full"
                 />
               </div>
-            </div>
+            
 
             <button type="submit" class="btn btn-primary w-full">
               Register

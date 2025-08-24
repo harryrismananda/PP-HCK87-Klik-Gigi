@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('./partial/_head', {title: "New Appointment"}) %> 
-  <body class="">
+  <%- include('./partial/_nav') %>
+  <body class="bg-stone-400 min-h-screen">
     <div class="flex justify-center items-center">
 
     <div class="max-w-2xl mx-auto mt-10 p-6 bg-base-100 shadow-xl rounded-xl">
   <h2 class="text-2xl font-bold mb-6 text-center">Create Appointment</h2>
 
-  <form action="/appointments" method="POST" class="space-y-6">
+  <form action="/patient/<%= user.id %>/NewAppointment" method="POST" class="space-y-6">
     <!-- Doctor Selection -->
     <div class="form-control">
       <label class="label">
         <span class="label-text font-semibold">Select Doctor</span>
       </label>
-      <select name="doctorId" class="select select-bordered w-full" required>
+      <select name="DoctorId" class="select select-bordered w-full" required>
         <% doctors.forEach(doctor => { %>
           <option value="<%= doctor.id %>">
             <%= doctor.User.name %> 
@@ -28,7 +29,7 @@
       <label class="label">
         <span class="label-text font-semibold">Date</span>
       </label>
-      <input type="date" name="date" class="input input-bordered w-full" required />
+      <input type="date" name="scheduledAt" class="input input-bordered w-full" required />
     </div>
 
     <!-- Symptoms (checkboxes) -->
@@ -39,7 +40,7 @@
       <div class="grid grid-cols-2 gap-2">
         <% symptoms.forEach(symptom => { %>
           <label class="cursor-pointer flex items-center space-x-2">
-            <input type="checkbox" name="symptomIds" value="<%= symptom.id %>" class="checkbox checkbox-primary" />
+            <input type="checkbox" name="SymptomId" value="<%= symptom.id %>" class="checkbox checkbox-primary" />
             <span><%= symptom.name %></span>
           </label>
         <% }) %>
@@ -62,5 +63,6 @@
 </div>
 
     </div>
+    <%- include('./partial/_footer') %>
   </body>
 </html>

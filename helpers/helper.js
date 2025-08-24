@@ -20,4 +20,13 @@ const hashPassword = (user, option) => {
   user.password = hash;
 };
 
-module.exports = { licenseNumberHook, hashPassword };
+const dateFormat = (date) => {
+  return new Date(date).toLocaleDateString(`en-EN`, {
+    weekday: "long",
+    year: "numeric",
+    day: "numeric",
+    month: "long",
+  });
+};
+
+module.exports = { licenseNumberHook, hashPassword, dateFormat };

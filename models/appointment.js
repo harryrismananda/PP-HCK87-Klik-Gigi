@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Appointment extends Model {
     /**
@@ -9,23 +7,36 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    get scheduleFormat() {
+      return new Date(this.scheduledAt).toLocaleDateString(`en-EN`, {
+        weekday: "long",
+        year: "numeric",
+        day: "numeric",
+        month: "long",
+      });
+    }
+
     static associate(models) {
       Appointment.hasOne(models.Prescription, { foreignKey: "AppointmentId" });
       Appointment.belongsTo(models.Patient, { foreignKey: "PatientId" });
       Appointment.belongsTo(models.Doctor, { foreignKey: "DoctorId" });
-      Appointment.belongsTo(models.Symptom, { foreignKey: "SymptomId" });
+      Appointment.belongsToMany(models.Symptom, {
+        through: `AppointmentSymptoms`,
+      });
     }
   }
-  Appointment.init({
-    PatientId: DataTypes.INTEGER,
-    DoctorId: DataTypes.INTEGER,
-    SymptomId: DataTypes.INTEGER,
-    scheduledAt: DataTypes.DATE,
-    notes: DataTypes.TEXT,
-    status: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'Appointment',
-  });
+  Appointment.init(
+    {
+      PatientId: DataTypes.INTEGER,
+      DoctorId: DataTypes.INTEGER,
+      scheduledAt: DataTypes.DATE,
+      notes: DataTypes.TEXT,
+      status: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      modelName: "Appointment",
+    }
+  );
   return Appointment;
 };
