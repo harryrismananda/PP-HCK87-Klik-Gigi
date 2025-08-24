@@ -3,6 +3,8 @@ const { loggedIn } = require("../middlewares/auth");
 const router = require(`express`).Router();
 
 
-router.get(`/`, loggedIn, Controller.doctorPage);
+router.get(`/:userid`, Controller.doctorPage);
+router.get(`/:userid/profile`, Controller.getDoctorProfile);
+router.post(`/:userid/profile`, Controller.postDoctorProfile);
 
 module.exports = router

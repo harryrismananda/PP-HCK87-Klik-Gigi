@@ -1,8 +1,8 @@
 const loggedIn = (req, res, next) => {
-  if (!req.session.userId) {
-    const error = `Please login to access this page`;
-    return res.redirect(`/user/login?error=${error}`);
-  }
+  // if (!req.session.userId) {
+  //   const error = `Please login to access this page`;
+  //   return res.redirect(`/user/login?error=${error}`);
+  // }
   next();
 }
 

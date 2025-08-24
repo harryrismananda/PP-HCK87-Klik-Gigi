@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       Patient.belongsTo(models.User, { foreignKey: "UserId" })
       Patient.hasMany(models.Appointment, { foreignKey: "PatientId" })
     }
+
+
   }
   Patient.init({
     gender: DataTypes.STRING,

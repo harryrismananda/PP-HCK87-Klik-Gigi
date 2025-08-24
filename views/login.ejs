@@ -6,7 +6,9 @@
       <div class="card w-96 bg-base-100 shadow-xl">
         <div class="card-body">
           <h2 class="card-title justify-center">Login</h2>
-
+          <% if (error) { %>
+           <p class="text-red-500"><%= error %></p>
+          <% } %>
           <form action="/user/login" method="POST" class="form-control space-y-4">
             <div>
               <label class="label">
@@ -17,7 +19,7 @@
                 name="email"
                 placeholder="Enter your email"
                 class="input input-bordered w-full"
-                required
+               
               />
             </div>
 
@@ -30,7 +32,7 @@
                 name="password"
                 placeholder="Enter your password"
                 class="input input-bordered w-full"
-                required
+               
               />
             </div>
 

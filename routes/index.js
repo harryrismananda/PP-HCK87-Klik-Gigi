@@ -11,9 +11,9 @@ const routerPatient = require(`./patient`)
 router.use(`/user`, routerAuth)
 router.use(`/doctor`, routerDoc)
 
+router.use(`/patient`, routerPatient);
 
 
-router.get(`/`, loggedIn, Controller.home);
 
 router.use(errorNotFound);
 

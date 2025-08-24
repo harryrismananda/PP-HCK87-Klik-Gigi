@@ -15,7 +15,10 @@
       </label>
       <select name="doctorId" class="select select-bordered w-full" required>
         <% doctors.forEach(doctor => { %>
-          <option value="<%= doctor.id %>"><%= doctor.name %> - <%= doctor.specialization %></option>
+          <option value="<%= doctor.id %>">
+            <%= doctor.User.name %> 
+            - <%= doctor.specialization %>
+          </option>
         <% }) %>
       </select>
     </div>
@@ -26,14 +29,6 @@
         <span class="label-text font-semibold">Date</span>
       </label>
       <input type="date" name="date" class="input input-bordered w-full" required />
-    </div>
-
-    <!-- Time -->
-    <div class="form-control">
-      <label class="label">
-        <span class="label-text font-semibold">Time</span>
-      </label>
-      <input type="time" name="time" class="input input-bordered w-full" required />
     </div>
 
     <!-- Symptoms (checkboxes) -->

@@ -6,11 +6,12 @@
     <div class="flex justify-center items-center">
       <div class="flex flex-col items-center justify-center mt-10 px-4 w-full">
         <h1 class="text-3xl font-bold mb-6">
-          Welcome, Dr. Dummy 🦷
+          Welcome, Dr. <%= user.name %> 🦷
         </h1>
 
         <!-- View Patients Button -->
         <a href="/patients" class="btn btn-primary mb-8"> View Patient List </a>
+        <a href="/doctor/<%= user.id %>/profile" class="btn btn-primary mb-8"> Edit Profile </a>
 
         <!-- Appointment Table -->
         <div class="overflow-x-auto w-full max-w-5xl">

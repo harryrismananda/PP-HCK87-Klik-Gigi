@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { licenseNumberHook } = require('../helpers/helper');
 module.exports = (sequelize, DataTypes) => {
   class Doctor extends Model {
     /**
@@ -16,11 +17,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Doctor.init({
     specialization: DataTypes.STRING,
-    licenseNumber: DataTypes.INTEGER,
+    licenseNumber: DataTypes.STRING,
     UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Doctor',
   });
+
+  Doctor.beforeCreate(licenseNumberHook)
+  Doctor.beforeUpdate(licenseNumberHook)
+
   return Doctor;
 };

@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       licenseNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       UserId: {
         type: Sequelize.INTEGER
