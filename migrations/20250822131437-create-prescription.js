@@ -10,7 +10,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       AppointmentId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: `Appointments`,
+          key: `id`
+        }
       },
       instruction: {
         type: Sequelize.TEXT
