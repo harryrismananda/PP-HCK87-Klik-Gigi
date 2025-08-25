@@ -27,7 +27,7 @@
           </p>
           <% if (el.status) { %>
 
-          <div><a href="#" class="btn">Download Prescription</a></div>
+          <div><a href="/patient/<%= user.id %>/appointments/<%= el.id %>/prescription/<%= el.Prescription.id %>/download" class="btn">Download Prescription</a></div>
           <% } %>
 
           <!-- Symptoms Table -->

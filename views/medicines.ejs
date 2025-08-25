@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partial/_head', {title: "Home"}) %> 
+  <body class="bg-stone-400">
+    <div class="flex justify-center items-center">
+      <div class="flex flex-col items-center justify-center mt-10 px-4 w-full">
+        <h1 class="text-3xl font-bold mb-6">Medicine Lists</h1>
+
+        <!-- View Patients Button -->
+        <div class="grid grid-cols-2 gap-5">
+          <a href="/doctor/medicines" class="btn btn-primary mb-8">
+            View Medicine Lists
+          </a>
+        </div>
+
+        <!-- Appointment Table -->
+        <div class="overflow-x-auto max-w">
+          <table class="table w-full">
+            <!-- Table Head -->
+            <thead>
+              <tr class="bg-base-300">
+                <th>#</th>
+                <th>Medicine Name</th>
+                <th>Description</th>
+                <th>Usual Symptoms</th>
+              </tr>
+            </thead>
+            <!-- Table Body -->
+            <tbody>
+              <% medicines.forEach((el, i )=> { %>
+              <tr class="hover:bg-blue-300">
+                <td><%= i++ %></td>
+                <td><%= el.name %></td>
+                <td><%= el.description %></td>
+                <td>Usual Symptoms</td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+  <%- include('./partial/_footer') %>
+</html>

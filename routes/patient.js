@@ -1,11 +1,12 @@
 const Controller = require("../controllers/controller");
 const router = require(`express`).Router();
 
-router.get(`/:userid`, Controller.home)
+router.get(`/:UserId`, Controller.home)
 // router.get(`/appointmentlist`, Controller.home)
-router.get(`/:userid/newAppointment`, Controller.getNewAppointment)
-router.post(`/:userid/newAppointment`, Controller.postNewAppointment)
-router.get(`/:userid/appointmentList`, Controller.appointmentList)
+router.get(`/:UserId/newAppointment`, Controller.getNewAppointment)
+router.post(`/:UserId/newAppointment`, Controller.postNewAppointment)
+router.get(`/:UserId/appointmentList`, Controller.appointmentList)
+router.get(`/:UserId/appointments/:AppointmentId/prescription/:PrescriptionId/download`, Controller.downloadPrescription)
 
 
 module.exports = router

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partial/_head', {title: "Home"}) %> <%-
+  include('./partial/_nav', {user}) %>
+  <body class="bg-stone-400">
+    <div class="flex justify-center items-center">
+      <form
+        action="/doctor/<%= user.id %>/appointments/<%= appointment.id %>/prescription"
+        method="POST"
+        class="max-w-2xl mx-auto p-6 bg-inherit shadow-lg rounded-lg"
+      >
+        <!-- Appointment Info -->
+        <div class="mb-4 mt-5">
+          <h1>
+            Appointment #<%= appointment.id %> - <%=
+            appointment.Patient.User.name %> with Dr. <%=
+            appointment.Doctor.User.name %> on <%= appointment.scheduleFormat %>
+          </h1>
+        </div>
+
+        <!-- Symptoms (readonly from appointment) -->
+        <div class="mb-4">
+          <label class="block text-dark-700 font-medium mb-2">Symptoms</label>
+          <ul class="list-disc list-inside bg-transparent-50 p-3 rounded">
+            <% appointment.Symptoms.forEach(symptom => { %>
+            <li><%= symptom.name %></li>
+            <% }) %>
+          </ul>
+        </div>
+
+        <!-- Medicines -->
+        <div class="mb-4">
+          <label class="block text-gray-700 font-medium mb-2"
+            >Prescribe Medicines</label
+          >
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <% medicines.forEach(med => { %>
+            <label class="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="MedicineId"
+                value="<%= med.id %>"
+                class="checkbox checkbox-primary"
+              />
+              <span><%= med.name %></span>
+            </label>
+            <% }) %>
+          </div>
+        </div>
+
+        <!-- Dosage & Notes -->
+        <div class="mb-4">
+          <label class="block text-gray-700 font-medium mb-2"
+            >Dosage & Instructions</label
+          >
+          <textarea
+            name="instruction"
+            rows="3"
+            class="textarea textarea-bordered w-full"
+            placeholder="e.g. Take 1 tablet after meals, 3 times a day"
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary w-full">
+          Save Prescription
+        </button>
+      </form>
+    </div>
+  </body>
+  <%- include('./partial/_footer') %>
+</html>

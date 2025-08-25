@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Patient extends Model {
     /**
@@ -10,20 +8,54 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Patient.belongsTo(models.User, { foreignKey: "UserId" })
-      Patient.hasMany(models.Appointment, { foreignKey: "PatientId" })
+      Patient.belongsTo(models.User, { foreignKey: "UserId" });
+      Patient.hasMany(models.Appointment, { foreignKey: "PatientId" });
     }
-
-
   }
-  Patient.init({
-    gender: DataTypes.STRING,
-    age: DataTypes.INTEGER,
-    bloodType: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Patient',
-  });
+  Patient.init(
+    {
+      gender: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: `Gender must not be empty`,
+          },
+          notEmpty: {
+            msg: `Gender must not be empty`,
+          },
+        },
+      },
+      age: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: `Age must not be empty`,
+          },
+          notEmpty: {
+            msg: `Age must not be empty`,
+          },
+        },
+      },
+      bloodType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: `Blood Type must not be empty`,
+          },
+          notEmpty: {
+            msg: `Blood Type must not be empty`,
+          },
+        },
+      },
+      UserId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Patient",
+    }
+  );
   return Patient;
 };

@@ -7,13 +7,13 @@ const routerPatient = require(`./patient`)
 
 
 
-
 router.use(`/user`, routerAuth)
 router.use(`/doctor`, routerDoc)
 
 router.use(`/patient`, routerPatient);
 
 
+router.get(`/`, Controller.landingPage)
 
 router.use(errorNotFound);
 

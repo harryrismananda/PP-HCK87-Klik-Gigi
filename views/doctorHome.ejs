@@ -10,40 +10,86 @@
         </h1>
 
         <!-- View Patients Button -->
-        <a href="/patients" class="btn btn-primary mb-8"> View Patient List </a>
-        <a href="/doctor/<%= user.id %>/profile" class="btn btn-primary mb-8"> Edit Profile </a>
+         <div class="grid grid-cols-2 gap-5">
+           <a href="/doctor/medicines" class="btn btn-primary mb-8"> View Medicine Lists </a>
+           <a href="/doctor/<%= user.id %>/profile" class="btn btn-primary mb-8">
+             Edit Profile
+           </a>
+
+         </div>
 
         <!-- Appointment Table -->
-        <div class="overflow-x-auto w-full max-w-5xl">
-          <table class="table table-zebra w-full">
+        <div class="overflow-x-auto max-w">
+          <table class="table w-full ">
             <!-- Table Head -->
-            <thead>
-              <tr>
+            <thead >
+              <tr class="bg-base-300">
                 <th>Patient</th>
                 <th>Date</th>
-                <th>Time</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th>Symptoms</th>
+                <th>Notes</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <!-- Table Body -->
             <tbody>
-              <tr>
-                <td>John Doe</td>
-                <td>2025-08-25</td>
-                <td>10:00 AM</td>
-                <td>Pending</td>
+              <% appointments.forEach(el => { %>
+              <tr class="hover:bg-blue-300">
+                <td><%= el.Patient.User.name %></td>
+                <td><%= el.scheduleFormat %></td>
+                <td><%= el.status ?'Approved' : 'Pending' %></td>
                 <td>
-                  <a href="/appointments/1/edit" class="btn btn-sm btn-accent">
-                    Update Status
+                  <label for="my_modal_5" class="btn btn-outline btn-primary font-bold text-dark">Symptoms</label>
+
+                  <input type="checkbox" id="my_modal_5" class="modal-toggle" />
+                  <div class="modal" role="dialog">
+                    <div class="modal-box">
+                      <h3 class="font-bold text-lg">Symptom List</h3>
+                      <p class="py-4">
+                         <% el.Symptoms.forEach((symptom, i) => { %> 
+                          <%= i  !== el.Symptoms.length -1 ? `${symptom.name},  `: symptom.name %> 
+                         <%  }) %>
+                      </p>
+                      <div class="modal-action">
+                        <label for="my_modal_5" class="btn">Close</label>
+                      </div>
+                    </div>
+                  </div>
+
+                 
+                </td>
+                <td><%= el.notes %></td>
+                <td class="">
+                  <a
+                    href="/doctor/<%= user.id %>/appointments/<%= el.id %>/approve"
+                    class="btn btn-sm btn-accent"
+                  >
+                    Approve Appointment
                   </a>
+                  
+                  <a
+                    href="/doctor/<%= user.id %>/appointments/<%= el.id %>/delete"
+                    class="btn btn-sm btn-error"
+                  >
+                    Delete Appointment
+                  </a>
+                  <% if (el.status) { %>
+                  <a
+                    href="/doctor/<%= user.id %>/appointments/<%= el.id %>/prescription"
+                    class="btn btn-sm btn-primary font-bold"
+                  >
+                    Create Prescription
+                  </a>
+                  <% } %>
                 </td>
               </tr>
+              <% }) %>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    <%- include('./partial/_footer') %>
   </body>
+  <%- include('./partial/_footer') %>
 </html>
