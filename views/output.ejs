@@ -79,7 +79,7 @@
       <div class="info">
         <p><strong>Patient:</strong> <%= appointment.Patient.User.name %></p>
         <p><strong>Doctor:</strong> <%= appointment.Doctor.User.name %></p>
-        <p><strong>Date:</strong> <%= new Date().toLocaleDateString() %></p>
+        <p><strong>Date:</strong> <%= new Date().toLocaleDateString(`en-EN`, {weekday: "long", year: "numeric", day: "numeric", month: "long",}) %></p>
       </div>
 
       <div class="table-container">

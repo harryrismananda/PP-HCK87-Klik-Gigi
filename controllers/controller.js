@@ -1,5 +1,4 @@
-const { dateFormat } = require("../helpers/helper");
-const { User, Doctor, Symptom, Medicine, Appointment, Prescription, Patient, AppointmentSymptom, PrescriptionMedicine } = require(`../models`);
+const { User, Doctor, Symptom, Medicine, Appointment, Prescription, Patient } = require(`../models`);
 const ejs = require(`ejs`)
 const path = require(`path`);
 
@@ -8,10 +7,6 @@ class Controller {
 
   static async landingPage(req, res) {
     try {
-      // console.log(req.params)
-      // console.log(UserId)
-      
-      // console.log(user)
       res.redirect(`/user/login`);
     } catch (error) {
       // console.log(error)
@@ -21,11 +16,9 @@ class Controller {
 
   static async home(req, res) {
     try {
-      // console.log(req.params)
       const {UserId} = req.params
-      // console.log(UserId)
       const user = await User.findByPk(UserId)
-      // console.log(user)
+      
       res.render(`home`, {user});
     } catch (error) {
       // console.log(error)
@@ -39,8 +32,7 @@ class Controller {
       
       const user = await User.findByPk(UserId, {include: Doctor, where:{UserId: UserId} })
       const appointments = await Appointment.findAll({where:{DoctorId: user.Doctor.id}, include:[{model: Patient, include:User}, {model:Symptom}]})
-      // console.log(user.Doctor.id)
-      // console.log(appointments[0].Symptoms)
+
       res.render(`doctorHome`, {user, appointments});
     } catch (error) {
       res.send(error);
@@ -50,7 +42,7 @@ class Controller {
   static async getDoctorProfile(req, res) {
     try {
       const {UserId} = req.params
-      // console.log(UserId)
+      
       const user = await User.findByPk(UserId)
       res.render(`doctorProfile`, {user});
     } catch (error) {
@@ -62,9 +54,9 @@ class Controller {
     try {
       const {UserId} = req.params
       const {name, specialization, licenseNumber} = req.body
-      // console.log(req.body)
+      
       await User.update({name}, {where: {id: UserId}})
-      // console.log(UserId)
+      
       const doctor = await Doctor.findByPk(1)
       await doctor.update({specialization, licenseNumber, UserId:UserId})
       res.redirect(`/doctor/${UserId}`);
@@ -77,12 +69,11 @@ class Controller {
     try {
       const {UserId, AppointmentId} = req.params
       const medicines = await Medicine.findAll()
-      // console.log(medicines)
-      const appointment = await Appointment.findByPk(AppointmentId, {include:[{model: Symptom}, {model: Patient, include: User}, {model: Doctor, include:User}]})
+      const appointment = await Appointment.findAppointment(AppointmentId)
       const user = await User.findByPk(UserId)
       res.render(`prescriptionForm`, {user, medicines, appointment});
     } catch (error) {
-      // console.log(error)
+      console.log(error)
       res.send(error);
     }
   }
@@ -92,15 +83,14 @@ class Controller {
       const {UserId, AppointmentId, PrescriptionId} = req.params
       const {generatePDF} = await import(`pdf-node`)
       const user = await User.findByPk(UserId)
-      const appointment = await Appointment.findByPk(AppointmentId, {include:[{model: Symptom}, {model: Patient, include: User}, {model: Doctor, include:User}]})
+      const pdfPath = `../public/output.pdf`
+      const appointment = await Appointment.findAppointment(AppointmentId)
       const prescription = await Prescription.findByPk(PrescriptionId, {include:Medicine})
       const html = await ejs.renderFile(path.join(__dirname, `../views/output.ejs`),{ prescription, user, appointment})
       const options = { format: "A4", orientation: "portrait", border: "10mm" };
-      const document = {html, path: path.join(__dirname, `../public/output.pdf`), type:'pdf', data: { prescription, user, appointment}}
+      const document = {html, path: path.join(__dirname, pdfPath), type:'pdf', data: { prescription, user, appointment}}
       await generatePDF(document, options)
-      // console.log(medicines)
-      // const appointment = await Appointment.findByPk(AppointmentId, {include:[{model: Symptom}, {model: Patient, include: User}, {model: Doctor, include:User}]})
-      res.download(path.join(__dirname, `../public/output.pdf`));
+      res.download(path.join(__dirname, pdfPath));
     } catch (error) {
       console.log(error)
       res.status(500).send("Error Generating PDF");
@@ -137,7 +127,7 @@ class Controller {
     try {
       const {UserId, AppointmentId} = req.params
       // console.log(UserId)
-      const appointment = await Appointment.findByPk(AppointmentId)
+      const appointment = await Appointment.findAppointment(AppointmentId)
       console.log(appointment)
       await appointment.update({status: true})
       res.redirect(`/doctor/${UserId}`);
@@ -183,8 +173,6 @@ class Controller {
       const user = await User.findByPk(UserId)
       const patient = await Patient.findOne({where:{UserId: UserId}, include:User})
       const appointment = await Appointment.findAll({where:{PatientId: patient.id}, include:[{model: Symptom}, {model: Doctor, include:User}, {model:Prescription}]})
-      // console.log(appointment[0].Symptoms)
-      // console.log(appointment[0].Doctor.User)
       res.render(`appointmentList`, {user, appointment, patient});
     } catch (error) {
       res.send(error);

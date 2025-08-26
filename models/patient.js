@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: `Age must not be empty`,
           },
+          min: {
+            args: 0,
+            msg:`Age cannot be negative number!`
+          }
         },
       },
       bloodType: {

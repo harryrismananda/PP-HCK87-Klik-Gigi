@@ -16,6 +16,19 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
+    static async findAppointment(where){
+      try {
+        const options = {include:[{model: sequelize.models.Symptom}, {model: sequelize.models.Patient, include: sequelize.models.User}, {model: sequelize.models.Doctor, include:sequelize.models.User}]}
+        if (where) {
+        options.where = {id: where}
+        return await Appointment.findOne(options)  
+        }
+        
+      } catch (error) {
+        throw error
+      }
+    }
+
     static associate(models) {
       Appointment.hasOne(models.Prescription, { foreignKey: "AppointmentId" });
       Appointment.belongsTo(models.Patient, { foreignKey: "PatientId" });
