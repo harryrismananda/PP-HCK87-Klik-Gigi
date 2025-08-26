@@ -14,14 +14,18 @@ module.exports = {
         references: {
           model: `Appointments`,
           key: `id`
-        }
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       SymptomId: {
         type: Sequelize.INTEGER,
         references: {
           model: `Symptoms`,
           key: `id`
-        }
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       createdAt: {
         allowNull: false,

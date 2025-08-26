@@ -6,7 +6,7 @@
     <div class="flex justify-center items-center">
       <div class="flex flex-col items-center justify-center mt-10 px-4 w-full">
         <h1 class="text-3xl font-bold mb-6">
-          Welcome, Dr. <%= user.name %> 🦷
+          Welcome, Dr. <%= user.name %> 
         </h1>
 
         <!-- View Patients Button -->
@@ -20,6 +20,19 @@
 
         <!-- Appointment Table -->
         <div class="overflow-x-auto max-w">
+          <% if (msg) { %>
+           <div class="toast toast-end z-50">
+  <div class="alert alert-success shadow-lg">
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+      <span><%= msg %></span>
+    </div>
+  </div>
+</div>
+
+          <% } %>
           <table class="table w-full ">
             <!-- Table Head -->
             <thead >

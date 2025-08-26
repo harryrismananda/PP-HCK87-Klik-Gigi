@@ -10,5 +10,6 @@ router.post(`/:UserId/profile`, Controller.postDoctorProfile);
 router.get(`/:UserId/appointments/:AppointmentId/approve`, Controller.approveAppointment);
 router.get(`/:UserId/appointments/:AppointmentId/prescription`, Controller.getPrescription);
 router.post(`/:UserId/appointments/:AppointmentId/prescription`, Controller.postPrescription);
+router.get(`/:UserId/appointments/:AppointmentId/delete`, Controller.deleteAppointment);
 
 module.exports = router

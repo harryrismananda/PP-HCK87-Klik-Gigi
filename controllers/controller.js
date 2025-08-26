@@ -29,11 +29,11 @@ class Controller {
   static async doctorPage(req, res) {
     try {
       const {UserId} = req.params
-      
+      const {msg} = req.query
       const user = await User.findByPk(UserId, {include: Doctor, where:{UserId: UserId} })
       const appointments = await Appointment.findAll({where:{DoctorId: user.Doctor.id}, include:[{model: Patient, include:User}, {model:Symptom}]})
 
-      res.render(`doctorHome`, {user, appointments});
+      res.render(`doctorHome`, {user, appointments, msg});
     } catch (error) {
       res.send(error);
     }
@@ -174,6 +174,18 @@ class Controller {
       const patient = await Patient.findOne({where:{UserId: UserId}, include:User})
       const appointment = await Appointment.findAll({where:{PatientId: patient.id}, include:[{model: Symptom}, {model: Doctor, include:User}, {model:Prescription}]})
       res.render(`appointmentList`, {user, appointment, patient});
+    } catch (error) {
+      res.send(error);
+    }
+  }
+
+  static async deleteAppointment(req, res) {
+    try {
+      const {UserId, AppointmentId} = req.params
+      const appointment = await Appointment.findAppointment(AppointmentId)
+      await appointment.destroy()
+
+      res.redirect(`/doctor/${UserId}/?msg=Appointment with ID: ${appointment.id} for patient: ${appointment.Patient.User.name} has been deleted`);
     } catch (error) {
       res.send(error);
     }
