@@ -65,34 +65,7 @@
             <% } %>
 
             
-              <h3 class="text-lg font-semibold mb-4">Doctor Information</h3>
-              <div class="form-control mb-4">
-                <label class="label">
-                  <span class="label-text">Specialization</span>
-                </label>
-                <% const dentistSpecializations = ["General Dentist","Orthodontist", "Endodontist","Oral Surgeon","Pediatric Dentist","Prosthodontist","Oral Pathologist","Oral Radiologist","Cosmetic Dentist"] %>
-                <select
-                  name="specialization"
-                  class="select select-bordered w-full"
-                  
-                >
-                  <option disabled selected>Select specialization</option>
-                  <% dentistSpecializations.forEach(spec => { %>
-                  <option value="<%= spec %>"><%= spec %></option>
-                  <% }) %>
-                </select>
-              </div>
-              <div class="form-control mb-4">
-                <label class="label">
-                  <span class="label-text">License Number</span>
-                </label>
-                <input
-                  type="number"
-                  name="licenseNumber"
-                  placeholder="123456"
-                  class="input input-bordered w-full"
-                />
-              </div>
+             
             
 
             <button type="submit" class="btn btn-primary w-full">

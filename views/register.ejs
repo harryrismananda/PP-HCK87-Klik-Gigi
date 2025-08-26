@@ -23,6 +23,10 @@
                 placeholder="Enter your full name"
                 class="input input-bordered w-full"
               />
+              <% if (error) { %>
+                <% error = error.split(",") %>
+            <p class="text-red-500"><%= error[0] %></p>
+            <% } %>
             </div>
 
             <div>
@@ -35,6 +39,9 @@
                 placeholder="Enter your email"
                 class="input input-bordered w-full"
               />
+              <% if (error) { %>
+            <p class="text-red-500"><%= error[2] %></p>
+            <% } %>
             </div>
 
             <div>
@@ -47,6 +54,7 @@
                 placeholder="Enter your password"
                 class="input input-bordered w-full"
               />
+              
             </div>
 
             <div>
@@ -60,50 +68,10 @@
                 class="input input-bordered w-full"
                 required
               />
-            </div>
-            <% if (error) { %>
-            <p class="text-red-500"><%= error %></p>
+              <% if (error) { %>
+            <p class="text-red-500"><%= error[1] %></p>
             <% } %>
-
-           
-              <h3 class="text-lg font-semibold mb-4">Patient Information</h3>
-              <div class="form-control mb-4">
-                <label class="label">
-                  <span class="label-text">Gender</span>
-                </label>
-                <% const gender = ["Male", "Female"] %>
-                <select name="gender" class="select select-bordered w-full">
-                  <option disabled selected>Select gender</option>
-                  <% gender.forEach(el => { %>
-                  <option value="<%= el %>"><%= el %></option>
-                  <% }) %>
-                </select>
-              </div>
-              <div class="form-control mb-4">
-                <label class="label">
-                  <span class="label-text">Age</span>
-                </label>
-                <input
-                  type="number"
-                  name="age"
-                  placeholder="123456"
-                  class="input input-bordered w-full"
-                />
-              </div>
-              <div class="form-control mb-4">
-                <label class="label">
-                  <span class="label-text">Blood Type</span>
-                </label>
-                <% const bloodType = ["A", "B", "AB", "O"] %>
-                <select name="bloodType" class="select select-bordered w-full">
-                  <option disabled selected>Select Blood Type</option>
-                  <% bloodType.forEach(el => { %>
-                  <option value="<%= el %>"><%= el %></option>
-                  <% }) %>
-                </select>
-              </div>
-            
-
+            </div>
             <button type="submit" class="btn btn-primary w-full">
               Register
             </button>

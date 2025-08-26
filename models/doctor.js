@@ -18,11 +18,9 @@ module.exports = (sequelize, DataTypes) => {
   Doctor.init({
     specialization: {
       type: DataTypes.STRING,
-      allowNull: false,
+      
       validate:{
-        notNull: {
-          msg: `Specialization must not be empty`
-        },
+        
         notEmpty:{
           msg: `Specialization must not be empty`
         }
@@ -30,11 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     licenseNumber: {
       type: DataTypes.STRING,
-      allowNull: false,
+      
       validate:{
-        notNull: {
-          msg: `License Number must not be empty`
-        },
+        
         notEmpty:{
           msg: `License Number must not be empty`
         }
@@ -46,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Doctor',
   });
 
-  Doctor.beforeCreate(licenseNumberHook)
+  // Doctor.beforeCreate(licenseNumberHook)
   Doctor.beforeUpdate(licenseNumberHook)
 
   return Doctor;

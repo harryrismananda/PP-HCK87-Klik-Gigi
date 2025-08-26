@@ -16,11 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       gender: {
         type: DataTypes.STRING,
-        allowNull: false,
+
         validate: {
-          notNull: {
-            msg: `Gender must not be empty`,
-          },
           notEmpty: {
             msg: `Gender must not be empty`,
           },
@@ -28,27 +25,21 @@ module.exports = (sequelize, DataTypes) => {
       },
       age: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+
         validate: {
-          notNull: {
-            msg: `Age must not be empty`,
-          },
           notEmpty: {
             msg: `Age must not be empty`,
           },
           min: {
-            args: 0,
-            msg:`Age cannot be negative number!`
-          }
+            args: 1,
+            msg: `Age cannot be negative number!`,
+          },
         },
       },
       bloodType: {
         type: DataTypes.STRING,
-        allowNull: false,
+
         validate: {
-          notNull: {
-            msg: `Blood Type must not be empty`,
-          },
           notEmpty: {
             msg: `Blood Type must not be empty`,
           },

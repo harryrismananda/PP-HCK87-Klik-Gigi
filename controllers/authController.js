@@ -46,17 +46,25 @@ class AuthController {
     try {
       const { name, email, password, confirmPassword, gender, age, bloodType } = req.body;
       const role = `Patient`
+
       if (password !== confirmPassword) {
-        const err = `Password does not match!`
-        return res.redirect(`/user/register?error=${err}`)
+        const errors = [{message: `Password does not match!`,
+          path: "password"
+        }]
+        throw {name: "PasswordError" , errors}
       }
+
       await User.create({name, password, role, email})
-      const createdUser = await User.findOne({where: {email}})
-      await Patient.create({gender, age, bloodType, UserId: createdUser.id})
+      
       return res.redirect(`/user/login`);
     } catch (error) {
       console.log(error)
-      res.send(error);
+      if (error.name === "SequelizeUniqueConstraintError" || error.name === "SequelizeValidationError" || error.name === "PasswordError") {
+        let err = await User.validation(error.errors)
+
+        res.redirect(`/user/register?error=${err}`);
+      }
+      res.send(error)
     }
   }
 
@@ -71,17 +79,20 @@ class AuthController {
 
   static async postDocRegister(req, res) {
     try {
-      const { name, email, password, confirmPassword, specialization, licenseNumber } = req.body;
+      const { name, email, password, confirmPassword } = req.body;
       const role = `Doctor`;
       if (password !== confirmPassword) {
-        const err = `Password does not match!`
-        return res.redirect(`/user/register?error=${err}`)
+        const errors = [{message: `Password does not match!`,
+          path: "password"
+        }]
+        throw {name: "PasswordError" , errors}
       }
+
       await User.create({ email, name, password, role });
-      const createdUser = await User.findOne({where: {email}})
-      await Doctor.create({specialization, licenseNumber, UserId: createdUser.id})
+      
       return res.redirect(`/user/login`);
     } catch (error) {
+      console.log(error)
       res.send(error);
     }
   }

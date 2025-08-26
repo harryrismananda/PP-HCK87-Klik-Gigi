@@ -12,13 +12,30 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Patient, { foreignKey: "UserId" });
       User.hasOne(models.Doctor, { foreignKey: "UserId" });
     }
+
+    static async validation(arr) {
+      let err = ["", "", ""];
+      arr.forEach((el) => {
+        if (el.path === "name") {
+          err[0] = el.message;
+        }
+        if (el.path === "password") {
+          err[1] = el.message;
+        }
+        if (el.path === "email") {
+          err[2] = el.message;
+        }
+      });
+      return err;
+    }
   }
+
   User.init(
     {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: { msg: "Email has been used" },
         validate: {
           notNull: {
             msg: `Email must not be empty!`,
@@ -50,14 +67,14 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: {
             msg: `Password must not be empty!`,
           },
-          minimumLength (value) {
-           if (value.length < 8 ) {
-            throw new Error(`Minimum password length is 8!`)
-           }
-          }
+          minimumLength(value) {
+            if (value.length < 8) {
+              throw new Error(`Minimum password length is 8!`);
+            }
+          },
         },
       },
-      role: DataTypes.STRING, //butuh validation in
+      role: DataTypes.STRING,
     },
     {
       sequelize,
@@ -66,6 +83,15 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.beforeCreate(hashPassword);
+  User.afterCreate(async (user) => {
+    if (user.role === "Patient") {
+      await user.createPatient();
+    } 
+    
+    if(user.role === "Doctor") {
+      await user.createDoctor()
+    }
+  });
 
   return User;
 };

@@ -1,6 +1,7 @@
 const { User, Doctor, Symptom, Medicine, Appointment, Prescription, Patient } = require(`../models`);
 const ejs = require(`ejs`)
 const path = require(`path`);
+const { Op } = require("sequelize");
 
 class Controller {
   
@@ -29,12 +30,17 @@ class Controller {
   static async doctorPage(req, res) {
     try {
       const {UserId} = req.params
-      const {msg} = req.query
+      const {msg, search} = req.query
       const user = await User.findByPk(UserId, {include: Doctor, where:{UserId: UserId} })
-      const appointments = await Appointment.findAll({where:{DoctorId: user.Doctor.id}, include:[{model: Patient, include:User}, {model:Symptom}]})
+      const options = {where:{DoctorId: user.Doctor.id}, include:[{model: Patient, include:{model: User}}, {model:Symptom}]}
+      if (search) {
+        options.include[0].include.where = {name: {[Op.iLike] : `%${search}%`}}
+      }
+      const appointments = await Appointment.findAll(options)
 
       res.render(`doctorHome`, {user, appointments, msg});
     } catch (error) {
+      console.log(error)
       res.send(error);
     }
   }
@@ -43,7 +49,7 @@ class Controller {
     try {
       const {UserId} = req.params
       
-      const user = await User.findByPk(UserId)
+      const user = await User.findByPk(UserId, {include: Doctor})
       res.render(`doctorProfile`, {user});
     } catch (error) {
       res.send(error);
@@ -57,14 +63,44 @@ class Controller {
       
       await User.update({name}, {where: {id: UserId}})
       
-      const doctor = await Doctor.findByPk(1)
-      await doctor.update({specialization, licenseNumber, UserId:UserId})
+      const doctor = await Doctor.findOne({where: {UserId}})
+      await doctor.update({specialization, licenseNumber})
       res.redirect(`/doctor/${UserId}`);
     } catch (error) {
       console.log(error)
       res.send(error);
     }
   }
+
+    static async getPatientProfile(req, res) {
+    try {
+      const {UserId} = req.params
+      
+      const user = await User.findByPk(UserId, {include: Patient})
+      res.render(`patientProfile`, {user});
+    } catch (error) {
+      console.log(error)
+      res.send(error);
+    }
+  }
+
+  static async postPatientProfile(req, res) {
+    try {
+      const {UserId} = req.params
+      const {name, gender, age, bloodType} = req.body
+      
+      await User.update({name}, {where: {id: UserId}})
+      
+      const patient = await Patient.findOne({where: {UserId}})
+      await patient.update({gender, age, bloodType})
+      res.redirect(`/patient/${UserId}`);
+    } catch (error) {
+      console.log(error)
+      res.send(error);
+    }
+  }
+
+
   static async getPrescription(req, res) {
     try {
       const {UserId, AppointmentId} = req.params

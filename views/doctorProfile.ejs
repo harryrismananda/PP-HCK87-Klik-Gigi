@@ -47,7 +47,7 @@
             <select name="specialization" class="select select-bordered w-full" required>
             <option disabled selected>Select specialization</option>
             <% dentistSpecializations.forEach(spec => { %>
-              <option value="<%= spec %>"><%= spec %></option>
+              <option value="<%= spec %>" <%= user.Doctor.specialization === spec ? 'selected' : '' %>><%= spec %></option>
             <% }) %>
           </select>
           </div>
@@ -56,11 +56,11 @@
               <span class="label-text">License Number</span>
             </label>
             <input
-              type="number"
+              type="text"
               name="licenseNumber"
               placeholder="123456"
               class="input input-bordered w-full"
-              
+              value="<%= user.Doctor.licenseNumber %>"
             />
           </div>
         </div>
