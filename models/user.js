@@ -84,12 +84,16 @@ module.exports = (sequelize, DataTypes) => {
 
   User.beforeCreate(hashPassword);
   User.afterCreate(async (user) => {
-    if (user.role === "Patient") {
-      await user.createPatient();
-    } 
-    
-    if(user.role === "Doctor") {
-      await user.createDoctor()
+    try {
+      if (user.role === "Patient") {
+        await user.createPatient();
+      }
+
+      if (user.role === "Doctor") {
+        await user.createDoctor();
+      }
+    } catch (error) {
+      throw error;
     }
   });
 

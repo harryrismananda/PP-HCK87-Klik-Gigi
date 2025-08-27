@@ -11,6 +11,29 @@ module.exports = (sequelize, DataTypes) => {
       Patient.belongsTo(models.User, { foreignKey: "UserId" });
       Patient.hasMany(models.Appointment, { foreignKey: "PatientId" });
     }
+
+    static validation (arr) {
+
+      let err = ["","",""]
+      arr.forEach(element => {
+        if (element.path === "gender") {
+          err[0] = element.message
+        }
+        
+        if (element.path === "age") {
+          err[1] = element.message
+        }
+        
+        if (element.path === "bloodType") {
+          err[2] = element.message
+        }
+        
+      });
+      return err
+    }
+
+
+
   }
   Patient.init(
     {

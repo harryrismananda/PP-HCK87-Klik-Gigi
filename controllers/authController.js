@@ -1,4 +1,4 @@
-const { User, Doctor, Patient } = require(`../models`);
+const { User } = require(`../models`);
 const bcrypt = require(`bcryptjs`);
 
 class AuthController {
@@ -44,7 +44,7 @@ class AuthController {
 
   static async postRegister(req, res) {
     try {
-      const { name, email, password, confirmPassword, gender, age, bloodType } = req.body;
+      const { name, email, password, confirmPassword } = req.body;
       const role = `Patient`
 
       if (password !== confirmPassword) {

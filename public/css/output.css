@@ -2605,6 +2605,10 @@ video {
   margin-bottom: 1rem;
 }
 
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
 .mb-6 {
   margin-bottom: 1.5rem;
 }
@@ -2635,10 +2639,6 @@ video {
 
 .mt-6 {
   margin-top: 1.5rem;
-}
-
-.mb-5 {
-  margin-bottom: 1.25rem;
 }
 
 .block {
@@ -2681,6 +2681,10 @@ video {
   width: 13rem;
 }
 
+.w-6 {
+  width: 1.5rem;
+}
+
 .w-60 {
   width: 15rem;
 }
@@ -2691,10 +2695,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-6 {
-  width: 1.5rem;
 }
 
 .max-w-2xl {
@@ -2885,6 +2885,10 @@ video {
   text-align: center;
 }
 
+.font-serif {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -2939,6 +2943,11 @@ video {
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity, 1));
+}
+
+.text-red-300 {
+  --tw-text-opacity: 1;
+  color: rgb(252 165 165 / var(--tw-text-opacity, 1));
 }
 
 .shadow {

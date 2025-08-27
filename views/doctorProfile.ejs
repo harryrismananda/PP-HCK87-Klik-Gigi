@@ -50,6 +50,10 @@
               <option value="<%= spec %>" <%= user.Doctor.specialization === spec ? 'selected' : '' %>><%= spec %></option>
             <% }) %>
           </select>
+          <% if (error) { %>
+                  <% error = error.split(",") %>
+                 <p class="text-red-500 font-medium"><%= error[0]  %></p>
+                <% } %>
           </div>
           <div class="form-control mb-4">
             <label class="label">
@@ -62,6 +66,9 @@
               class="input input-bordered w-full"
               value="<%= user.Doctor.licenseNumber %>"
             />
+            <% if (error) { %>
+                 <p class="text-red-500 font-medium"><%= error[0]  %></p>
+                <% } %>
           </div>
         </div>
 
