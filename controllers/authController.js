@@ -20,7 +20,7 @@ class AuthController {
       if (user) {
         const validate = bcrypt.compareSync(password, user.password);
         if (validate) {
-          // req.session.userId = user.id;
+          req.session.userId = user.id;
           user.role === "Doctor" ? res.redirect(`/doctor/${user.id}`) : res.redirect(`/patient/${user.id}`);
         } else {
           res.redirect(`/user/login?error=${error}`);

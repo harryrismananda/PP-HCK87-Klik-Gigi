@@ -14,7 +14,8 @@
       <label class="label">
         <span class="label-text font-semibold">Select Doctor</span>
       </label>
-      <select name="DoctorId" class="select select-bordered w-full" required>
+      <select name="DoctorId" class="select select-bordered w-full" >
+        <option selected disabled>Choose your Doctor</option>
         <% doctors.forEach(doctor => { %>
           <option value="<%= doctor.id %>">
             <%= doctor.User.name %> 
@@ -22,6 +23,10 @@
           </option>
         <% }) %>
       </select>
+        <% if (error) { %>
+                <% error = error.split(",") %>
+            <p class="text-red-500"><%= error[0] %></p>
+            <% } %>
     </div>
 
     <!-- Date -->
@@ -29,7 +34,11 @@
       <label class="label">
         <span class="label-text font-semibold">Date</span>
       </label>
-      <input type="date" name="scheduledAt" class="input input-bordered w-full" required />
+      <input type="date" name="scheduledAt" class="input input-bordered w-full"  />
+      <% if (error) { %>
+               
+            <p class="text-red-500"><%= error[1] %></p>
+            <% } %>
     </div>
 
     <!-- Symptoms (checkboxes) -->
@@ -45,6 +54,10 @@
           </label>
         <% }) %>
       </div>
+      <% if (error) { %>
+               
+            <p class="text-red-500"><%= error[2] %></p>
+            <% } %>
     </div>
 
 

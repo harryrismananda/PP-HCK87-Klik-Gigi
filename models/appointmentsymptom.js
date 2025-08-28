@@ -15,7 +15,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   AppointmentSymptom.init({
     AppointmentId: DataTypes.INTEGER,
-    SymptomId: DataTypes.INTEGER
+    SymptomId: {type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {msg: `Please choose minimum 1 symptom!`},
+        notEmpty: {msg: `Please choose minimum 1 symptom!`}
+      }
+    }
   }, {
     sequelize,
     modelName: 'AppointmentSymptom',

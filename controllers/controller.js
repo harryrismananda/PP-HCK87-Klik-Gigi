@@ -86,7 +86,7 @@ class Controller {
     } catch (error) {
        if (error.name === "SequelizeValidationError") {
         const { UserId } = req.params;
-        const err = Patient.validation(error.errors)
+        const err = Doctor.validation(error.errors)
         res.redirect(`/patient/${UserId}/profile?error=${err}`)
       }
       
@@ -213,12 +213,13 @@ class Controller {
   static async getNewAppointment(req, res) {
     try {
       const { UserId } = req.params;
+      const {error} = req.query
       // console.log(UserId)
       const user = await User.findByPk(UserId);
       const symptoms = await Symptom.findAll();
       const doctors = await Doctor.findAll({ include: User });
       // console.log(doctors[0].User.name)
-      res.render(`addAppointment`, { user, symptoms, doctors });
+      res.render(`addAppointment`, { user, symptoms, doctors, error });
     } catch (error) {
       res.send(error);
     }
@@ -241,7 +242,13 @@ class Controller {
       await appointment.addSymptoms(SymptomId);
       res.redirect(`/patient/${UserId}`);
     } catch (error) {
-      console.log(error);
+      
+      if (error.name === "SequelizeValidationError") {
+        const { UserId } = req.params;
+        const err = Appointment.validation(error.errors)
+        res.redirect(`/patient/${UserId}/NewAppointment?error=${err}`)
+      }
+      
       res.send(error);
     }
   }
