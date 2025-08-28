@@ -2,22 +2,30 @@
 <html lang="en">
   <%- include('./partial/_head', {title: "Home"}) %> <%-
   include('./partial/_nav', {user}) %>
-  <body class="bg-stone-400">
-    <div class="flex justify-center items-center">
-      <div class="flex flex-col items-center justify-center mt-10 px-4 w-full">
-        <h1 class="text-3xl font-bold mb-6">Welcome, Dr. <%= user.name %></h1>
+  <body class="bg-gray-50 text-gray-800">
+    <div class="flex justify-center min-h-screen px-4">
+      <div class="flex flex-col w-full max-w-6xl mt-20">
+        <div class="text-center mb-10">
+          <h1 class="text-3xl font-bold mb-2 text-gray-900">
+            Welcome, Dr. <span class="text-blue-600"><%= user.name %></span>
+          </h1>
+        </div>
 
-        <!-- View Patients Button -->
-        <div class="grid grid-cols-2 gap-5">
-          <a href="/doctor/medicines" class="btn btn-primary mb-8">
+        <div class="flex justify-center gap-6 mb-12 flex-wrap">
+          <a
+            href="/doctor/medicines"
+            class="btn bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md w-52 py-3 transition"
+          >
             View Medicine Lists
           </a>
-          <a href="/doctor/<%= user.id %>/profile" class="btn btn-primary mb-8">
+          <a
+            href="/doctor/<%= user.id %>/profile"
+            class="btn bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-xl shadow-md w-52 py-3 transition"
+          >
             Edit Profile
           </a>
         </div>
 
-        <!-- Appointment Table -->
         <div class="overflow-x-auto max-w">
           <% if (msg) { %>
           <div class="toast toast-end z-50">
@@ -38,29 +46,47 @@
                 </svg>
                 <span><%= msg %></span>
               </div>
+              <a
+                href="/doctor/<%= user.id %>"
+                class="btn btn-sm btn-ghost absolute top-1 right-1"
+              >
+                ✕
+              </a>
             </div>
           </div>
 
           <% } %>
           <div class="mb-5">
-           <form action="/doctor/<%= user.id %>" method="get">
-            <input type="text" name="search" placeholder="Search by patient" class="input input-bordered w-md">
-            <input type="submit" value="search" class="btn btn-sm btn-primary font-bold">
-          </form>
-        </div>
+            <form action="/doctor/<%= user.id %>" method="get" class="flex items-center gap-2">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search by patient"
+                class="input input-bordered w-64 bg-white text-black 
+             dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 
+             rounded-l-lg"
+              />
+              <input
+                type="submit"
+                value="search"
+                 class="h-10 px-4 bg-blue-600 text-white font-bold rounded-r-lg hover:bg-blue-700 transition"
+              />
+            </form>
+          </div>
+
           <table class="table w-full">
-            <!-- Table Head -->
+           
             <thead>
               <tr class="bg-base-300">
                 <th>Patient</th>
-                <th>Date</th>
+                <th>Appointment Date</th>
                 <th>Status</th>
                 <th>Symptoms</th>
                 <th>Notes</th>
                 <th class="text-center">Action</th>
               </tr>
             </thead>
-            <!-- Table Body -->
+            
             <tbody>
               <% appointments.forEach(el => { %>
               <tr class="hover:bg-blue-300">
@@ -69,47 +95,56 @@
                 <td><%= el.status ?'Approved' : 'Pending' %></td>
                 <td>
                   <label
-                    for="my_modal_5"
+                    for="my_modal_<%= el.id %>"
                     class="btn btn-outline btn-primary font-bold text-dark"
                     >Symptoms</label
                   >
 
-                  <input type="checkbox" id="my_modal_5" class="modal-toggle" />
+                  <input
+                    type="checkbox"
+                    id="my_modal_<%= el.id %>"
+                    class="modal-toggle"
+                  />
                   <div class="modal" role="dialog">
                     <div class="modal-box">
-                      <h3 class="font-bold text-lg">Symptom List</h3>
-                      <p class="py-4">
-                        <% el.Symptoms.forEach((symptom, i) => { %> <%= i !==
-                        el.Symptoms.length -1 ? `${symptom.name}, `:
-                        symptom.name %> <% }) %>
+                      <h3 class="font-bold text-lg dark:text-white">
+                        Symptom List:
+                      </h3>
+                      <p
+                        class="space-y-2 text-sm text-gray-700 dark:text-white"
+                      >
+                        <% el.Symptoms.forEach((element, i) => { %> <%= i !==
+                        el.Symptoms.length -1 ? `${element.name}, `:
+                        element.name %> <% }) %>
                       </p>
                       <div class="modal-action">
-                        <label for="my_modal_5" class="btn">Close</label>
+                        <label for="my_modal_<%= el.id %>" class="btn"
+                          >Close</label
+                        >
                       </div>
                     </div>
                   </div>
                 </td>
                 <td><%= el.notes %></td>
-                <td class="">
-                  
+                <td class="space-y-2 sm:space-y-0 sm:space-x-2 flex flex-col sm:flex-row">
                   <% if (el.status) { %>
                   <a
                     href="/doctor/<%= user.id %>/appointments/<%= el.id %>/prescription"
-                    class="btn btn-sm btn-primary font-bold"
+                    class="btn btn-sm btn-primary font-semibold rounded-lg shadow-md w-full sm:w-auto text-center"
                   >
                     Create Prescription
                   </a>
                   <% } else { %>
-                      <a
+                  <a
                     href="/doctor/<%= user.id %>/appointments/<%= el.id %>/approve"
-                    class="btn btn-sm btn-accent"
+                    class="btn btn-sm btn-accent font-semibold rounded-lg shadow-md w-full sm:w-auto text-center"
                   >
                     Approve Appointment
                   </a>
 
                   <a
                     href="/doctor/<%= user.id %>/appointments/<%= el.id %>/delete"
-                    class="btn btn-sm btn-error"
+                    class="btn btn-sm btn-error font-semibold rounded-lg shadow-md w-full sm:w-auto text-center"
                   >
                     Delete Appointment
                   </a>
@@ -117,12 +152,11 @@
                 </td>
               </tr>
               <% }) %>
-              
             </tbody>
           </table>
         </div>
       </div>
     </div>
+    <%- include('./partial/_footer') %>
   </body>
-  <%- include('./partial/_footer') %>
 </html>

@@ -1,26 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('./partial/_head', {title: "Home"}) %>
-  <body class="bg-stone-400">
-    <%-include('./partial/_nav', {user}) %>
-    <div class="flex justify-center min-h-screen">
-      <div class="flex flex-col mt-20 px-4">
-        <h1 class="text-3xl font-bold mb-4">Welcome, <%= user.name %></h1>
-        <p class="text-lg mb-10">Manage your appointments and profile below.</p>
+  <body class="bg-gray-50 text-gray-800">
+    <%- include('./partial/_nav', {user}) %>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <!-- Create Appointment Button -->
-          <a href="/appointments/create" class="btn btn-primary btn-lg w-60">
+    
+    <div class="flex justify-center min-h-screen px-4">
+      <div class="flex flex-col w-full max-w-6xl mt-20">
+
+        
+        <div class="text-center mb-10">
+          <h1 class="text-3xl font-bold mb-2 text-gray-900">
+            Welcome, <span class="text-blue-600"><%= user.name %></span>
+          </h1>
+          <p class="text-lg text-gray-600">
+            Manage your appointments and profile below.
+          </p>
+        </div>
+
+        
+        <div class="flex justify-center gap-6 mb-12 flex-wrap">
+          
+          <a
+            href="/patient/<%= user.id %>/NewAppointment"
+            class="btn bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md w-52 py-3 transition"
+          >
             Create Appointment
           </a>
 
-          <!-- Edit Profile Button -->
-          <a href="/profile/edit" class="btn btn-secondary btn-lg w-60">
+          
+          <a
+            href="/patient/<%= user.id %>/profile/"
+            class="btn bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-xl shadow-md w-52 py-3 transition"
+          >
             Edit Profile
           </a>
         </div>
+
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-10">
+          <% appointment.forEach((el, i) => { %>
+          <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition p-6">
+            
+            <h2 class="text-lg font-bold text-gray-900 mb-4">
+              Appointment No. <%= i + 1 %>
+            </h2>
+            <div class="space-y-2 text-sm text-gray-700">
+              <p>
+                <span class="font-semibold">Doctor:</span>
+                <%= el.Doctor.User.name %>
+              </p>
+              <p>
+                <span class="font-semibold">Patient:</span>
+                <%= patient.User.name %>
+              </p>
+              <p>
+                <span class="font-semibold">Scheduled At:</span>
+                <%= el.scheduleFormat %>
+              </p>
+              <p>
+                <span class="font-semibold">Notes:</span>
+                <%= el.notes %>
+              </p>
+              <p>
+                <span class="font-semibold">Status:</span>
+                <span
+                  class="<%= el.status ? 'text-green-600 font-semibold' : 'text-yellow-600 font-medium' %>"
+                >
+                  <%= el.status ? 'Approved' : 'Pending' %>
+                </span>
+              </p>
+            </div>
+
+            
+            <% if (el.status && el.Prescription) { %>
+            <div class="mt-4">
+              <a
+                href="/patient/<%= user.id %>/appointments/<%= el.id %>/prescription/<%= el.Prescription.id %>/download"
+                class="inline-block bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-lg px-4 py-2 shadow-md transition"
+              >
+                Download Prescription
+              </a>
+            </div>
+            <% } %>
+
+            
+            <div class="overflow-x-auto mt-6 border rounded-lg">
+              <table class="table-auto w-full text-sm text-left border-collapse">
+                <thead class="bg-gray-100 text-gray-700">
+                  <tr>
+                    <th class="px-4 py-2">#</th>
+                    <th class="px-4 py-2">Symptom</th>
+                    <th class="px-4 py-2">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% el.Symptoms.forEach((symptom, index) => { %>
+                  <tr class="border-t hover:bg-gray-50">
+                    <td class="px-4 py-2"><%= index + 1 %></td>
+                    <td class="px-4 py-2 font-medium"><%= symptom.name %></td>
+                    <td class="px-4 py-2"><%= symptom.description %></td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <% }) %>
+        </div>
       </div>
     </div>
+
     <%- include('./partial/_footer') %>
   </body>
 </html>

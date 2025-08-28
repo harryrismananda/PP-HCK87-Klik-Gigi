@@ -1,45 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partial/_head', {title: "Home"}) %> 
-  <body class="bg-stone-400">
-    <div class="flex justify-center items-center">
-      <div class="flex flex-col items-center justify-center mt-10 px-4 w-full">
-        <h1 class="text-3xl font-bold mb-6">Medicine Lists</h1>
+  <%- include('./partial/_head', {title: "Medicine Lists"}) %>
+  <body class="bg-gray-50 text-gray-800">
 
-        <!-- View Patients Button -->
-        <div class="grid grid-cols-2 gap-5">
-          <a href="/doctor/medicines" class="btn btn-primary mb-8">
-            View Medicine Lists
+    <div class="flex justify-center min-h-screen px-4">
+      <div class="flex flex-col w-full max-w-6xl mt-20">
+
+
+        <div class="text-center mb-10">
+          <h1 class="text-3xl font-bold mb-2 text-gray-900">
+            Medicine Lists
+          </h1>
+          <p class="text-lg text-gray-600">
+            Available medicines and their details.
+          </p>
+        </div>
+
+   
+        <div class="flex justify-center gap-6 mb-12 flex-wrap">
+          <a
+            href="/doctor/<%= UserId %>"
+            class="btn bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md w-52 py-3 transition"
+          >
+            Back to Doctor Page
           </a>
         </div>
 
-        <!-- Appointment Table -->
-        <div class="overflow-x-auto max-w">
-          <table class="table w-full">
-            <!-- Table Head -->
-            <thead>
-              <tr class="bg-base-300">
-                <th>#</th>
-                <th>Medicine Name</th>
-                <th>Description</th>
-                <th>Usual Symptoms</th>
-              </tr>
-            </thead>
-            <!-- Table Body -->
-            <tbody>
-              <% medicines.forEach((el, i )=> { %>
-              <tr class="hover:bg-blue-300">
-                <td><%= i++ %></td>
-                <td><%= el.name %></td>
-                <td><%= el.description %></td>
-                <td>Usual Symptoms</td>
-              </tr>
-              <% }) %>
-            </tbody>
-          </table>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-10">
+          <% medicines.forEach((el, i) => { %>
+          <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition p-6">
+            
+            <h2 class="text-lg font-bold text-gray-900 mb-4">
+              <%= i + 1 %>. <%= el.name %>
+            </h2>
+            <div class="space-y-2 text-sm text-gray-700">
+              <p>
+                <span class="font-semibold">Description:</span>
+                <%= el.description %>
+              </p>
+              
+            </div>
+          </div>
+          <% }) %>
         </div>
+
       </div>
     </div>
+
+    <%- include('./partial/_footer') %>
   </body>
-  <%- include('./partial/_footer') %>
 </html>

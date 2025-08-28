@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const { licenseNumberHook } = require('../helpers/helper');
+
 module.exports = (sequelize, DataTypes) => {
   class Doctor extends Model {
     /**
@@ -60,8 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Doctor',
   });
 
-  // Doctor.beforeCreate(licenseNumberHook)
-  Doctor.beforeUpdate(licenseNumberHook)
+ 
 
   return Doctor;
 };

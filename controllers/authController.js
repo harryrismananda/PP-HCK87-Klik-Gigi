@@ -21,6 +21,7 @@ class AuthController {
         const validate = bcrypt.compareSync(password, user.password);
         if (validate) {
           req.session.userId = user.id;
+          req.session.role = user.role
           user.role === "Doctor" ? res.redirect(`/doctor/${user.id}`) : res.redirect(`/patient/${user.id}`);
         } else {
           res.redirect(`/user/login?error=${error}`);
@@ -58,7 +59,7 @@ class AuthController {
       
       return res.redirect(`/user/login`);
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       if (error.name === "SequelizeUniqueConstraintError" || error.name === "SequelizeValidationError" || error.name === "PasswordError") {
         let err = await User.validation(error.errors)
 
@@ -92,8 +93,12 @@ class AuthController {
       
       return res.redirect(`/user/login`);
     } catch (error) {
-      console.log(error)
-      res.send(error);
+      if (error.name === "SequelizeUniqueConstraintError" || error.name === "SequelizeValidationError" || error.name === "PasswordError") {
+        let err = await User.validation(error.errors)
+
+        res.redirect(`/user/reg-admin?error=${err}`);
+      }
+      res.send(error)
     }
   }
 
