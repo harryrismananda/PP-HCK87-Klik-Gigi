@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('./partial/_head', {title: "Login"}) %>
-  <body class="bg-stone-400 min-h-screen">
-    <div class="flex justify-center items-center  py-20 my-10 mx-auto">
-      <div class="card w-96 bg-base-100 shadow-xl">
-        <div class="card-body">
-          <h2 class="card-title justify-center">Login</h2>
-          <% if (error) { %>
-           <p class="text-red-500"><%= error %></p>
-          <% } %>
-          <form action="/user/login" method="POST" class="form-control space-y-4">
-            <div>
-              <label class="label">
-                <span class="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                class="input input-bordered w-full"
-               
-              />
-            </div>
+  <body class="bg-gray-100 min-h-screen flex justify-center items-center">
+    <div class="card w-96 bg-white shadow-lg rounded-2xl p-6">
+      <div class="card-body">
+        <h2
+          class="card-title justify-center text-2xl font-bold mb-4 text-gray-900"
+        >
+          Login
+        </h2>
 
-            <div>
-              <label class="label">
-                <span class="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                class="input input-bordered w-full"
-               
-              />
-            </div>
+        <% if (error) { %>
+        <p class="text-red-500 font-medium text-center"><%= error %></p>
+        <% } %>
 
-            <button type="submit" class="btn btn-primary w-full">Login</button>
-          </form>
+        <form action="/user/login" method="POST" class="form-control space-y-5">
+          <div>
+            <label class="label">
+              <span class="label-text font-medium text-gray-700">Email</span>
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              class="input w-full bg-gray-50 text-gray-900 placeholder-gray-400 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+            />
+          </div>
 
-          <p class="text-center mt-4 text-sm">
-            Don’t have an account?
-            <a href="/user/register" class="link link-primary">Register</a>
-          </p>
-        </div>
+          <div>
+            <label class="label">
+              <span class="label-text font-medium text-gray-700">Password</span>
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              class="input w-full bg-gray-50 text-gray-900 placeholder-gray-400 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary w-full mt-2 rounded-xl font-medium shadow-md hover:shadow-lg transition"
+          >
+            Login
+          </button>
+        </form>
+
+        <p class="text-center mt-6 text-sm text-gray-700">
+          Don’t have an account?
+          <a href="/user/register" class="link link-primary font-medium"
+            >Register</a
+          >
+        </p>
       </div>
-
-      
-  
     </div>
   </body>
 </html>

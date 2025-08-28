@@ -1,7 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('./partial/_head', {title: "Page Not Found"}) %>
-<body>
-  <div class="center text-5xl text-red-500">404 NOT FOUND</div>
-</body>
+  <%- include('./partial/_head', {title: "Page Not Found"}) %>
+  <body class="bg-gray-100 min-h-screen flex justify-center items-center">
+    <div class="card w-96 bg-white shadow-lg rounded-2xl mx-auto py-10 px-6">
+      <div class="card-body text-center">
+     
+        <div class="mb-6">
+          <div class="text-6xl font-bold text-primary mb-2">404</div>
+          <div class="w-16 h-1 bg-primary mx-auto rounded-full"></div>
+        </div>
+
+    
+        <h1 class="text-2xl font-semibold text-gray-800 mb-4">Page Not Found</h1>
+        
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Sorry, the page you are looking for doesn't exist or has been moved. 
+          Please check the URL or return to the homepage.
+        </p>
+
+     
+        <div class="space-y-3">
+          <a href="/" class="btn btn-primary w-full">
+            Go to Homepage
+          </a>
+          
+          <button onclick="history.back()" class="btn btn-outline btn-primary w-full">
+            Go Back
+          </button>
+        </div>
+
+      
+        <div class="mt-8 pt-6 border-t border-gray-200">
+          <p class="text-sm text-gray-500 mb-4">Need help? Try these links:</p>
+          
+          <div class="space-y-2 text-sm">
+            <div>
+              <a href="/user/login" class="link link-primary font-medium">Login</a>
+            </div>
+            <div>
+              <a href="/user/register" class="link link-primary font-medium">Register</a>
+            </div>
+
+          </div>
+        </div>
+
+       
+        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+          <p class="text-sm text-blue-700">
+            <span class="font-medium">KlikGigi Tip:</span> 
+            If you're looking for medical information, please consult with qualified healthcare professionals.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

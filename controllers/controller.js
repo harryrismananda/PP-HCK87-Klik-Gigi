@@ -25,8 +25,21 @@ class Controller {
     try {
       const { UserId } = req.params;
       const user = await User.findByPk(UserId);
+      const patient = await Patient.findOne({
+        where: { UserId: UserId },
+        include: User,
+      });
+      const appointment = await Appointment.findAll({
+        where: { PatientId: patient.id },
+        include: [
+          { model: Symptom },
+          { model: Doctor, include: User },
+          { model: Prescription },
+        ],
+      });
+      
 
-      res.render(`home`, { user });
+      res.render(`home`, { user, appointment, patient });
     } catch (error) {
       // console.log(error)
       res.send(error);
@@ -38,23 +51,26 @@ class Controller {
       const { UserId } = req.params;
       const { msg, search } = req.query;
       const user = await User.findByPk(UserId, {
-        include: Doctor,
-        where: { UserId: UserId },
-      });
+        include: Doctor});
+    
+
+
       const options = {
         where: { DoctorId: user.Doctor.id },
         include: [
-          { model: Patient, include: { model: User } },
+          { model: Patient, include:[ { model: User, where: search ? { name: { [Op.iLike]: `%${search}%` } } : undefined, required: search ? true : false }],  required: search ? true : false },
           { model: Symptom },
+          
         ],
       };
       if (search) {
-        options.include[0].include.where = {
+        options.include[0].include[0].where = {
           name: { [Op.iLike]: `%${search}%` },
         };
+       
       }
       const appointments = await Appointment.findAll(options);
-
+      
       res.render(`doctorHome`, { user, appointments, msg });
     } catch (error) {
       console.log(error);
@@ -188,9 +204,10 @@ class Controller {
 
   static async getMedicines(req, res) {
     try {
+      const UserId = req.session.userId
       const symptoms = await Symptom.findAll();
       const medicines = await Medicine.findAll();
-      res.render(`medicines`, { medicines, symptoms });
+      res.render(`medicines`, { medicines, symptoms, UserId });
     } catch (error) {
       console.log(error);
       res.send(error);
@@ -200,7 +217,7 @@ class Controller {
   static async approveAppointment(req, res) {
     try {
       const { UserId, AppointmentId } = req.params;
-      // console.log(UserId)
+      
       const appointment = await Appointment.findAppointment(AppointmentId);
       console.log(appointment);
       await appointment.update({ status: true });
@@ -214,11 +231,11 @@ class Controller {
     try {
       const { UserId } = req.params;
       const {error} = req.query
-      // console.log(UserId)
+ 
       const user = await User.findByPk(UserId);
       const symptoms = await Symptom.findAll();
       const doctors = await Doctor.findAll({ include: User });
-      // console.log(doctors[0].User.name)
+
       res.render(`addAppointment`, { user, symptoms, doctors, error });
     } catch (error) {
       res.send(error);
@@ -229,7 +246,7 @@ class Controller {
     try {
       const { UserId } = req.params;
       const { DoctorId, SymptomId, scheduledAt, notes } = req.body;
-      // console.log(req.params)
+
       const patient = await Patient.findOne({ where: { UserId: UserId } });
       const status = false;
       const appointment = await Appointment.create({
@@ -253,28 +270,28 @@ class Controller {
     }
   }
 
-  static async appointmentList(req, res) {
-    try {
-      const { UserId } = req.params;
-      // console.log(UserId)
-      const user = await User.findByPk(UserId);
-      const patient = await Patient.findOne({
-        where: { UserId: UserId },
-        include: User,
-      });
-      const appointment = await Appointment.findAll({
-        where: { PatientId: patient.id },
-        include: [
-          { model: Symptom },
-          { model: Doctor, include: User },
-          { model: Prescription },
-        ],
-      });
-      res.render(`appointmentList`, { user, appointment, patient });
-    } catch (error) {
-      res.send(error);
-    }
-  }
+  // static async appointmentList(req, res) {
+  //   try {
+  //     const { UserId } = req.params;
+  //     // console.log(UserId)
+  //     const user = await User.findByPk(UserId);
+  //     const patient = await Patient.findOne({
+  //       where: { UserId: UserId },
+  //       include: User,
+  //     });
+  //     const appointment = await Appointment.findAll({
+  //       where: { PatientId: patient.id },
+  //       include: [
+  //         { model: Symptom },
+  //         { model: Doctor, include: User },
+  //         { model: Prescription },
+  //       ],
+  //     });
+  //     res.render(`appointmentList`, { user, appointment, patient });
+  //   } catch (error) {
+  //     res.send(error);
+  //   }
+  // }
 
   static async deleteAppointment(req, res) {
     try {

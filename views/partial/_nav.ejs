@@ -1,53 +1,125 @@
-<div class="navbar bg-base-100 shadow-sm">
+<div
+  class="navbar sticky top-0 z-50 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border-b border-gray-200 dark:border-slate-700 px-6"
+>
   <div class="navbar-start">
     <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+      <button
+        tabindex="0"
+        class="btn btn-ghost lg:hidden text-slate-700 dark:text-slate-100"
+        aria-label="Open menu"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
+          class="h-6 w-6"
           viewBox="0 0 24 24"
+          fill="none"
           stroke="currentColor"
         >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M4 6h16M4 12h8m-8 6h16"
+            d="M4 6h16M4 12h16M4 18h16"
           />
         </svg>
-      </div>
+      </button>
       <ul
         tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+        class="menu menu-sm dropdown-content mt-3 w-60 p-3 rounded-xl shadow-lg border bg-white text-slate-800 border-gray-200 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700"
       >
-        <li><a href="/patient/<%= user.id %>">User Profile</a></li>
         <li>
-          <a>Appointment</a>
-          <ul class="p-2">
-            <li><a href="/patient/<%= user.id %>/NewAppointment">Create Appointment</a></li>
-            <li><a href="/patient/<%= user.id %>/appointmentList">Your Appointments</a></li>
-          </ul>
+          <% if (user.role === "Patient") { %>
+          <a
+            href="/patient/<%= user.id %>/profile"
+            class="hover:text-blue-600 dark:hover:text-blue-400"
+            >User Profile</a
+          >
+          <% } else { %>
+          <a
+            href="/doctor/<%= user.id %>/profile"
+            class="hover:text-blue-600 dark:hover:text-blue-400"
+            >User Profile</a
+          >
+          <% } %>
+        </li>
+        <li>
+          <% if (user.role === "Patient") { %>
+          <a
+            href="/patient/<%= user.id %>/NewAppointment"
+            class="hover:text-blue-600 dark:hover:text-blue-400"
+            >Create Appointment</a
+          >
+          <% } else { %>
+          <a
+            href="/doctor/medicines"
+            class="hover:text-blue-600 dark:hover:text-blue-400"
+            >Medicine List</a
+          >
+          <% } %>
         </li>
       </ul>
     </div>
-    <a class="btn btn-ghost text-xl" href="patient/<%= user.id %>">KlikGigi</a>
+
+    <% if (user.role === "Patient") { %>
+    <a
+      href="/patient/<%= user.id %>"
+      class="btn btn-ghost px-2 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white"
+    >
+      <span class="text-blue-600">Klik</span
+      ><span class="text-pink-500">Gigi</span>
+    </a>
+    <% } else { %>
+    <a
+      href="/doctor/<%= user.id %>"
+      class="btn btn-ghost px-2 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white"
+    >
+      <span class="text-blue-600">Klik</span
+      ><span class="text-pink-500">Gigi</span>
+    </a>
+    <% } %>
   </div>
+
   <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
-      <li><a href="/patient/<%= user.id %>">User Profile</a></li>
+    <ul class="menu menu-horizontal px-1 gap-2 text-base font-medium">
       <li>
-        <details>
-          <summary>Appointment</summary>
-          <ul class="p-2">
-            <li><a href="/patient/<%= user.id %>/NewAppointment">Create Appointment</a></li>
-            <li><a href="/patient/<%= user.id %>/appointmentList">Your Appointments</a></li>
-          </ul>
-        </details>
+        <% if (user.role === "Patient") { %>
+        <a
+          href="/patient/<%= user.id %>/profile"
+          class="text-slate-700 hover:text-blue-600 dark:text-slate-100 dark:hover:text-blue-400"
+          >User Profile</a
+        >
+        <% } else { %>
+        <a
+          href="/doctor/<%= user.id %>/profile"
+          class="text-slate-700 hover:text-blue-600 dark:text-slate-100 dark:hover:text-blue-400"
+          >User Profile</a
+        >
+        <% } %>
+      </li>
+      <li>
+        <% if (user.role === "Patient") { %>
+        <a
+          href="/patient/<%= user.id %>/NewAppointment"
+          class="text-slate-700 hover:text-blue-600 dark:text-slate-100 dark:hover:text-blue-400"
+          >Create Appointment</a
+        >
+        <% } else { %>
+        <a
+          href="/doctor/medicines"
+          class="text-slate-700 hover:text-blue-600 dark:text-slate-100 dark:hover:text-blue-400"
+          >Medicine List</a
+        >
+        <% } %>
       </li>
     </ul>
   </div>
+
   <div class="navbar-end">
-    <a class="btn" href="/user/logout">Logout</a>
+    <a
+      href="/user/logout"
+      class="btn rounded-full px-5 font-semibold shadow-sm bg-blue-600 hover:bg-blue-700 border-blue-600 text-white"
+    >
+      Logout
+    </a>
   </div>
 </div>

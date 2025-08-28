@@ -7,7 +7,7 @@
       <% appointment.forEach(el => { %>
       <div class="card bg-base-100 shadow-xl w-full max-w-lg mx-auto">
         <div class="card-body">
-          <!-- Appointment Info -->
+
           <h2 class="card-title">Appointment ID: <%= el.id %></h2>
           <p>
             <span class="font-semibold">Doctor:</span> <%= el.Doctor.User.name
@@ -30,7 +30,6 @@
           <div><a href="/patient/<%= user.id %>/appointments/<%= el.id %>/prescription/<%= el.Prescription.id %>/download" class="btn">Download Prescription</a></div>
           <% } %>
 
-          <!-- Symptoms Table -->
           <div class="overflow-x-auto mt-4">
             <table class="table table-zebra w-full">
               <thead>
