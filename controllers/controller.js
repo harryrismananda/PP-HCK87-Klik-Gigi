@@ -36,6 +36,7 @@ class Controller {
           { model: Doctor, include: User },
           { model: Prescription },
         ],
+        order :[[`id`, `ASC`]]
       });
       
 
