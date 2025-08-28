@@ -5,11 +5,9 @@
 
   <body class="bg-gray-50 min-h-screen">
     <div class="max-w-3xl mx-auto p-6">
-      <!-- Page Title -->
       <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Patient Profile</h2>
 
       <form action="/patient/<%= user.id %>/profile" method="POST" class="space-y-8">
-        <!-- General Info Card -->
         <div class="card bg-white shadow-md rounded-2xl p-6 border border-gray-100">
           <h3 class="text-xl font-semibold mb-6 text-primary">General Information</h3>
           
@@ -41,11 +39,10 @@
           </div>
         </div>
 
-        <!-- Patient Info Card -->
         <div class="card bg-white shadow-md rounded-2xl p-6 border border-gray-100">
           <h3 class="text-xl font-semibold mb-6 text-primary">Patient Information</h3>
 
-          <!-- Gender -->
+
           <div class="form-control mb-5">
             <label class="label">
               <span class="label-text font-medium text-gray-700">Gender</span>
@@ -63,7 +60,7 @@
             <% } %>
           </div>
 
-          <!-- Age -->
+
           <div class="form-control mb-5">
             <label class="label">
               <span class="label-text font-medium text-gray-700">Age</span>
@@ -80,7 +77,6 @@
             <% } %>
           </div>
 
-          <!-- Blood Type -->
           <div class="form-control mb-5">
             <label class="label">
               <span class="label-text font-medium text-gray-700">Blood Type</span>
@@ -98,7 +94,6 @@
           </div>
         </div>
 
-        <!-- Submit -->
         <div class="flex justify-center">
           <button type="submit" class="btn btn-primary px-8 rounded-full shadow-md hover:shadow-lg transition">
             Save Profile
