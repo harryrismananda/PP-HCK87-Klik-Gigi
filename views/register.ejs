@@ -19,7 +19,7 @@
               type="text"
               name="name"
               placeholder="Enter your full name"
-              class="input input-bordered w-full focus:ring-2 focus:ring-primary focus:outline-none"
+              class="input w-full bg-gray-50 text-gray-900 placeholder-gray-400 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
             />
             <% if (error) { %>
               <% error = error.split(",") %>
@@ -35,7 +35,7 @@
               type="email"
               name="email"
               placeholder="Enter your email"
-              class="input input-bordered w-full focus:ring-2 focus:ring-primary focus:outline-none"
+              class="input w-full bg-gray-50 text-gray-900 placeholder-gray-400 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
             />
             <% if (error) { %>
               <p class="text-red-500 text-sm mt-1"><%= error[2] %></p>
@@ -50,7 +50,7 @@
               type="password"
               name="password"
               placeholder="Enter your password"
-              class="input input-bordered w-full focus:ring-2 focus:ring-primary focus:outline-none"
+              class="input w-full bg-gray-50 text-gray-900 placeholder-gray-400 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
             />
           </div>
 
@@ -62,7 +62,7 @@
               type="password"
               name="confirmPassword"
               placeholder="Confirm your password"
-              class="input input-bordered w-full focus:ring-2 focus:ring-primary focus:outline-none"
+              class="input w-full bg-gray-50 text-gray-900 placeholder-gray-400 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-400 focus:outline-none transition"
               
             />
             <% if (error) { %>
